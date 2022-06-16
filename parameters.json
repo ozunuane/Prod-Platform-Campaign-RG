@@ -1,0 +1,33 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sites_NT_Prod_Platform_Campaign_AS_name": {
+            "value": null
+        },
+        "vaults_NT_Prod_Plat_Campaign_KV_name": {
+            "value": null
+        },
+        "serverfarms_NT_Prod_Platform_Campaign_ASP_name": {
+            "value": null
+        },
+        "components_NT_Prod_Platform_Campaign_AppInsights_name": {
+            "value": null
+        },
+        "configurationStores_nt_prod_platform_campaign_ac_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___nt_prod_platform_campaign_appinsights_name": {
+            "value": null
+        },
+        "actiongroups_application_insights_smart_detection_externalid": {
+            "value": null
+        },
+        "workspaces_defaultworkspace_b13d11b3_9583_4815_be4c_a7fddee16992_eus_externalid": {
+            "value": null
+        },
+        "virtualnetworks_nt_prod_platform_net_vnet_externalid": {
+            "value": null
+        }
+    }
+}

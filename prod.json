@@ -1,0 +1,96 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.7.4.23292",
+      "templateHash": "7116446873273362133"
+    }
+  },
+  "parameters": {
+    "asp_name": {
+      "type": "string",
+      "defaultValue": "NT-Prod-Platform-Campaign-ASP"
+    },
+    "appInsights_name": {
+      "type": "string",
+      "defaultValue": "NT-Prod-Platform-Campaign-APS"
+    },
+    "appservice_name": {
+      "type": "string",
+      "defaultValue": "NT-Prod-Platform-Campaign-AS"
+    },
+    "Product": {
+      "type": "string",
+      "defaultValue": "Campaign Service"
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "westus3"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2020-12-01",
+      "name": "[parameters('asp_name')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "P1v2",
+        "tier": "PremiumV2",
+        "size": "P1v2",
+        "family": "Pv2",
+        "capacity": 3
+      },
+      "kind": "app",
+      "properties": {
+        "perSiteScaling": false,
+        "maximumElasticWorkerCount": 1,
+        "isSpot": false,
+        "reserved": false,
+        "isXenon": false,
+        "hyperV": false,
+        "targetWorkerCount": 0,
+        "targetWorkerSizeId": 0
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2018-11-01",
+      "name": "[parameters('appservice_name')]",
+      "location": "[parameters('location')]",
+      "tags": {
+        "owner": "Andrew Yirak",
+        "Department": "NAF Tech",
+        "Environment": "Production",
+        "Product": "[parameters('Product')]"
+      },
+      "properties": {
+        "serverFarmId": "[resourceId('webServerFarms.id', 'asp_name')]"
+      }
+    },
+    {
+      "type": "Microsoft.Insights/components",
+      "apiVersion": "2020-02-02-preview",
+      "name": "[parameters('appInsights_name')]",
+      "location": "[parameters('location')]",
+      "tags": {
+        "owner": "Andrew Yirak",
+        "Department": "NAF Tech",
+        "Environment": "Production",
+        "Product": "[parameters('Product')]"
+      },
+      "kind": "web",
+      "properties": {
+        "Application_Type": "web",
+        "Flow_Type": "Bluefield",
+        "Request_Source": "rest",
+        "RetentionInDays": 90,
+        "IngestionMode": "LogAnalytics",
+        "publicNetworkAccessForIngestion": "Enabled",
+        "publicNetworkAccessForQuery": "Enabled"
+      }
+    }
+  ]
+}
